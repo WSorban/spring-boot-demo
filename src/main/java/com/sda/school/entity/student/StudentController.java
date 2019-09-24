@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rest/student")
 public class StudentController {
 
     private StudentService studentService;
@@ -26,13 +24,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<StudentModel> add(@RequestBody StudentModel studentModel) {
-        StudentModel addedStudentModel = studentService.add(studentModel);
-        return ResponseEntity.ok(addedStudentModel);
+    @PostMapping(consumes = "application/json", produces = "application/json", path="/rest/class/{classId}/student")
+    public ResponseEntity add(@PathVariable Long classId, @RequestBody StudentModel studentModel) {
+        try {
+            StudentModel addedStudentModel = studentService.add(classId, studentModel);
+            return ResponseEntity.ok(addedStudentModel);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @GetMapping(produces = "application/json", path="/{id}")
+    @GetMapping(produces = "application/json", path="/rest/student/{id}")
     public ResponseEntity<StudentModel> get(@PathVariable("id") Long id) {
         Optional<StudentModel> student = studentService.get(id);
         if(student.isPresent()) {
@@ -42,7 +44,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = "application/json", path="/rest/student")
     public ResponseEntity<List<StudentModel>> get() {
         List<StudentModel> students = studentService.get();
         if(students.isEmpty()) {
@@ -52,7 +54,7 @@ public class StudentController {
         }
     }
 
-    @DeleteMapping(path="/{id}")
+    @DeleteMapping(path="/rest/student/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         try {
             studentService.delete(id);
@@ -62,7 +64,7 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(consumes = "application/json")
+    @PutMapping(consumes = "application/json", path="/rest/student")
     public ResponseEntity update(@RequestBody StudentModel studentModel) {
         try {
             Optional<StudentModel> updatedStudent = studentService.update(studentModel);

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface StudentService {
 
-    StudentModel add(StudentModel studentModel);
+    StudentModel add(Long classId, StudentModel studentModel) throws Exception;
 
     Optional<StudentModel> update(StudentModel studentModel) throws NullIdException;
 
