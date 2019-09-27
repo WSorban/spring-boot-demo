@@ -1,5 +1,6 @@
 package com.sda.school.entity.schoolclass;
 
+import com.sda.school.entity.AbstractModel;
 import com.sda.school.entity.student.StudentModel;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,11 +17,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class ClassModel {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+public class ClassModel extends AbstractModel<Long> {
 
     private String name;
 

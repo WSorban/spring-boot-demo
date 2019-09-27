@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/class")
+@CrossOrigin
 public class ClassController {
 
-    private ClassService classService;
+    private ClassServiceImpl classService;
 
     @Autowired
-    public ClassController(ClassService classService) {
+    public ClassController(ClassServiceImpl classService) {
         this.classService = classService;
     }
 

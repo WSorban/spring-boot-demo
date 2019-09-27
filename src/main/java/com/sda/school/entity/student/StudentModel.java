@@ -1,6 +1,7 @@
 package com.sda.school.entity.student;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sda.school.entity.AbstractModel;
 import com.sda.school.entity.schoolclass.ClassModel;
 import javax.persistence.*;
 import lombok.Getter;
@@ -11,11 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Getter
 @Setter
-public class StudentModel {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+public class StudentModel extends AbstractModel<Long> {
 
     private String name;
 

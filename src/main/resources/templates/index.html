@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Tutorial Thymeleaf</title>
+</head>
+<body>
+<h2>Hello SDA</h2>
+<p>Bine ati venit pe pagina de tutorial Spring Boot Thymeleaf</p>
+<div sec:authorize="hasRole('STUDENT')">Acest text este vizibil doar student</div>
+<div sec:authorize="hasRole('TEACHER')">Acest text este vizibil doar profesorilor</div>
+<div sec:authorize="isAuthenticated()">
+  Acest continut este vizibil tuturor utilizatorilor autentificati
+</div>
+User autentificat:
+<div sec:authentication="name"></div>
+Rolul userului autentificat:
+<div sec:authentication="principal.authorities"></div>
+</body>
+</html>
